@@ -33,10 +33,6 @@ export class UserGuard implements CanActivate {
 
       const user = await this.userService.getUserByIdOrFail(id);
 
-      if (!user.isActive) {
-        throw new UnauthorizedException();
-      }
-
       request.user = user;
 
       return true;

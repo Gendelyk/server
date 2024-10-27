@@ -11,8 +11,6 @@ import { createClassValidatorPipe } from './modules/common/pipes/validation.pipe
 import { HttpExceptionFilter } from './modules/common/filters/http-exception.filter.js';
 import { AnyExceptionFilter } from './modules/common/filters/any-exception.filter.js';
 
-import './sentry/instrument.js';
-
 const logger = new Logger(AppModule.name);
 
 async function bootstrap(): Promise<void> {

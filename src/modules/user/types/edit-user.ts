@@ -1,10 +1,7 @@
 import { User } from './user.js';
 
-import { UserEntity } from '../entities/user.entity.js';
-
 type AllowedFields = Partial<
-  Omit<User, 'id' | 'password' | 'status' | 'pointsAmount'> &
-    Pick<UserEntity, 'statusId' | 'deviceToken'>
+  Omit<User, 'id' | 'password' | 'status' | 'pointsAmount'>
 >;
 
 type EditUserData = AllowedFields & {

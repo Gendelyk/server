@@ -2,16 +2,6 @@ import { UserEntity } from '../entities/user.entity.js';
 
 export type CreateUserParams = Pick<
   UserEntity,
-  | 'email'
-  | 'password'
-  | 'firstName'
-  | 'lastName'
-  | 'address'
-  | 'postalCode'
-  | 'city'
-  | 'businessName'
-  | 'phone'
-  | 'role'
-  | 'dateOfBirth'
+  'email' | 'password' | 'firstName' | 'lastName'
 > &
-  Partial<Pick<UserEntity, 'statusId' | 'createdAt' | 'lastResetPointsAt'>>;
+  Partial<Pick<UserEntity, 'createdAt' | 'role'>>;

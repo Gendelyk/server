@@ -1,7 +1,6 @@
 import {
   CanActivate,
   ExecutionContext,
-  ForbiddenException,
   Injectable,
   Logger,
   UnauthorizedException,
@@ -9,7 +8,6 @@ import {
 import { Request } from 'express';
 
 import { CryptoService } from '../../crypto/crypto.service.js';
-import { UserRole } from '../../user/enums/user-status.enum.js';
 import { UserService } from '../../user/user.service.js';
 
 @Injectable()
@@ -38,14 +36,6 @@ export class AdminGuard implements CanActivate {
       }
 
       const user = await this.userService.getUserByIdOrFail(id);
-
-      if (!user.isActive) {
-        throw new UnauthorizedException();
-      }
-
-      if (user.role !== UserRole.Admin) {
-        throw new ForbiddenException();
-      }
 
       request.user = user;
 

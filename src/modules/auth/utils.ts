@@ -12,12 +12,11 @@ type JwtPayload = {
 const ONE_SECOND_IN_MS = 1000;
 
 export const generateToken = (user: User): string => {
-  const { role, id, isActive } = user;
+  const { role, id } = user;
 
   const payload: JwtPayload = {
     id,
     role,
-    isActive,
     iat: Math.floor(Date.now() / ONE_SECOND_IN_MS),
   };
 

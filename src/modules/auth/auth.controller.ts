@@ -8,12 +8,7 @@ import {
   Res,
   UseGuards,
 } from '@nestjs/common';
-import {
-  ApiBadRequestResponse,
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 
 import { AuthService } from './auth.service.js';
@@ -21,17 +16,11 @@ import { ONE_YEAR_IN_MS } from './constants.js';
 import { LoginInput } from './dto/login/input.dto.js';
 import { LoginOutput } from './dto/login/output.dto.js';
 import { RegisterUserInput } from './dto/register/input.dto.js';
-import { ResetPasswordInput } from './dto/reset-password/input.dto.js';
-import { SendResetPasswordCodeInput } from './dto/send-reset-password-code/input.dto.js';
-import { VerifyResetPasswordCodeInput } from './dto/verify-reset-password-code/input.dto.js';
 import { UserGuard } from './guards/user.guard.js';
-import { ResetPasswordService } from './modules/reset-password/reset-password.service.js';
 
 import { ErrorOutput } from '../common/dto/error.output.js';
 import { SuccessOutput } from '../common/dto/sucess.output.js';
-import { UserIdentity } from '../user/decorators/user-identity.decorator.js';
-import { UserRole } from '../user/enums/user-status.enum.js';
-import { User } from '../user/types/user.js';
+import { UserRole } from '../user/enums/user-role.enum.js';
 import { UserService } from '../user/user.service.js';
 
 @ApiTags('auth')
@@ -42,7 +31,6 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UserService,
-    private readonly resetPasswordService: ResetPasswordService,
   ) {}
 
   @HttpCode(HttpStatus.OK)
@@ -115,81 +103,18 @@ export class AuthController {
     description: 'User is logged out successfully',
     type: SuccessOutput,
   })
-  async logout(
+  logout(
     @Res({ passthrough: true }) res: Response,
-    @UserIdentity() user: User,
-  ): Promise<SuccessOutput> {
+    // @UserIdentity() user: User,
+  ): SuccessOutput {
     res.cookie('accessToken', '');
 
-    await this.userService.updateUserById({
-      id: user.id,
-      data: { deviceToken: undefined },
-    });
+    // await this.userService.updateUserById({
+    //   id: user.id,
+    //   data: {},
+    // });
 
     return { message: 'Logged out successfully' };
-  }
-
-  @Post('/send-reset-password-code')
-  @HttpCode(HttpStatus.OK)
-  @ApiOkResponse({
-    description: 'Code is sent successfully',
-    type: SuccessOutput,
-  })
-  @ApiNotFoundResponse({
-    type: ErrorOutput,
-  })
-  async sendResetPasswordCode(
-    @Body() input: SendResetPasswordCodeInput,
-  ): Promise<SuccessOutput> {
-    const user = await this.userService.getUserByEmail(input.email);
-
-    // * we don't want to send email if user is not in our db, but do not inform user to prevent attacks
-    if (user && user.isActive) {
-      await this.resetPasswordService.sendResetPasswordCode(user);
-    } else {
-      this.logger.debug('User not found or is not active', { input });
-    }
-
-    return { message: 'Code has been sent successfully' };
-  }
-
-  @Post('/verify-reset-password-code')
-  @HttpCode(HttpStatus.OK)
-  @ApiOkResponse({
-    description: 'Code is valid',
-    type: SuccessOutput,
-  })
-  @ApiBadRequestResponse({
-    description: 'Code is invalid',
-    type: ErrorOutput,
-  })
-  async verifyResetPasswordCode(
-    @Body() input: VerifyResetPasswordCodeInput,
-  ): Promise<SuccessOutput> {
-    await this.resetPasswordService.verifyResetPasswordCode(
-      input.email,
-      input.code,
-    );
-
-    return { message: 'Code is valid' };
-  }
-
-  @Post('/reset-password')
-  @HttpCode(HttpStatus.OK)
-  @ApiOkResponse({
-    description: 'Password has been reset successfully',
-    type: SuccessOutput,
-  })
-  @ApiBadRequestResponse({
-    description: 'Code is invalid',
-    type: ErrorOutput,
-  })
-  async resetPassword(
-    @Body() input: ResetPasswordInput,
-  ): Promise<SuccessOutput> {
-    await this.authService.resetPasswordByCode(input);
-
-    return { message: 'Password has been reset successfully' };
   }
 
   private attachAccessToken(response: Response, accessToken: string): void {

@@ -1,19 +1,11 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum, IsNumberString } from 'class-validator';
+import { ApiProperty, OmitType } from '@nestjs/swagger';
+import { IsEnum } from 'class-validator';
 
 import { BaseUser } from '../../../common/dto/base-user.js';
-import { UserRole } from '../../enums/user-status.enum.js';
-import { User } from '../../types/user.js';
+import { UserRole } from '../../enums/user-role.enum.js';
 
-export class CreateUserInput
-  extends BaseUser
-  implements Omit<User, 'id' | 'pointsAmount' | 'status'>
-{
+export class CreateUserInput extends OmitType(BaseUser, ['id']) {
   @ApiProperty({ enum: UserRole })
   @IsEnum(UserRole)
   role: UserRole;
-
-  @ApiProperty({})
-  @IsNumberString()
-  statusId: number;
 }

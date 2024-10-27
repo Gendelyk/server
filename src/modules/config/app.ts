@@ -7,6 +7,4 @@ export const appConfig = {
   isProduction: envConfig.NODE_ENV === NodeEnv.Production,
   isTesting: envConfig.NODE_ENV === NodeEnv.Test,
   databaseUrl: envConfig.DATABASE_URL,
-  sentryDsn: envConfig.SENTRY_DSN,
-  supportEmail: envConfig.SUPPORT_EMAIL,
 };
