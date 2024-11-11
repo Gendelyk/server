@@ -22,6 +22,12 @@ async function bootstrap(): Promise<void> {
   app.useGlobalFilters(new AnyExceptionFilter());
   app.useGlobalFilters(new HttpExceptionFilter());
 
+  app.enableCors({
+    origin: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
+
   if (!appConfig.isProduction) {
     const config = new DocumentBuilder()
       .setTitle('Hispec')
