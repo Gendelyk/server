@@ -26,4 +26,13 @@ export class PostService {
       relations: { author: true },
     });
   }
+
+  async updatePostById(
+    postId: number,
+    data: Partial<PostEntity>,
+  ): Promise<PostEntity> {
+    await this.postRepository.update(postId, data);
+
+    return this.getPostByIdOrFail(postId);
+  }
 }

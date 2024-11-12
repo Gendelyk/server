@@ -1,8 +1,18 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiForbiddenResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import { PostAdapter } from './adapters/post.adapter.js';
 import { CreatePostInput } from './dto/create-post.input.js';
+import { EditPostInput } from './dto/edit-post.input.js';
 import { PostDto } from './dto/post.dto.js';
 import { PostService } from './post.service.js';
 
@@ -30,6 +40,39 @@ export class PostController {
     const data = await this.postService.getAllAvailablePosts();
 
     return data.map(PostAdapter.toDto);
+  }
+
+  @Get(':id')
+  @ApiOkResponse({
+    description: 'Returns post with specified id',
+    type: PostDto,
+  })
+  @ApiForbiddenResponse({
+    description: 'Error message',
+    type: ErrorOutput,
+  })
+  async getPost(@Param('id', ParseIntPipe) postId: number): Promise<PostDto> {
+    const data = await this.postService.getPostByIdOrFail(postId);
+
+    return PostAdapter.toDto(data);
+  }
+
+  @Patch(':id')
+  @ApiOkResponse({
+    description: 'Updates post',
+    type: PostDto,
+  })
+  @ApiForbiddenResponse({
+    description: 'Error message',
+    type: ErrorOutput,
+  })
+  async updatePost(
+    @Param('id', ParseIntPipe) postId: number,
+    @Body() data: EditPostInput,
+  ): Promise<PostDto> {
+    const response = await this.postService.updatePostById(postId, data);
+
+    return PostAdapter.toDto(response);
   }
 
   @Post()

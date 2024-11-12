@@ -6,6 +6,7 @@ import { SentryModule } from '@sentry/nestjs/setup';
 
 import { AppController } from './app.controller.js';
 import { AuthModule } from './modules/auth/auth.module.js';
+import { CategoryModule } from './modules/category/category.module.js';
 import { CryptoModule } from './modules/crypto/crypto.module.js';
 import { DbModule } from './modules/db/db.module.js';
 import { PostModule } from './modules/post/post.module.js';
@@ -26,6 +27,7 @@ import { UserModule } from './modules/user/user.module.js';
     ScheduleModule.forRoot(),
     EventEmitterModule.forRoot(),
     PostModule,
+    CategoryModule,
   ],
   controllers: [AppController],
 })

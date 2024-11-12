@@ -1,12 +1,9 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { PickType } from '@nestjs/swagger';
 
-export class CreatePostInput {
-  @ApiProperty()
-  @IsString()
-  title: string;
+import { PostDto } from './post.dto.js';
 
-  @ApiProperty()
-  @IsString()
-  body: string;
-}
+export class CreatePostInput extends PickType(PostDto, [
+  'title',
+  'body',
+  'categoryId',
+]) {}

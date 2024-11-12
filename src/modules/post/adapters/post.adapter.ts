@@ -10,6 +10,7 @@ export class PostAdapter {
       title: entity.title,
       id: entity.id,
       status: entity.status,
+      categoryId: entity.categoryId,
     };
   }
 }
