@@ -7,3 +7,5 @@ words:
   - hispec
   - timestamptz
   - gendelyk
+  - upvote
+  - downvote

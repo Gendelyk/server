@@ -3,6 +3,7 @@ import { CategoryEntity } from '../category/entities/category.entity.js';
 import { CommentEntity } from '../comment/entities/comment.entity.js';
 import { SearchHistoryEntity } from '../history/entities/search-history.entity.js';
 import { PostEntity } from '../post/entities/post.entity.js';
+import { RatingEntity } from '../rating/entities/rating.entity.js';
 import { UserEntity } from '../user/entities/user.entity.js';
 
 export const entities = [
@@ -12,4 +13,5 @@ export const entities = [
   PostEntity,
   CommentEntity,
   CategoryEntity,
+  RatingEntity,
 ];
