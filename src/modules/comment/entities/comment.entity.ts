@@ -1,12 +1,13 @@
-import { Column, Entity, JoinColumn, OneToOne, Relation } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, Relation } from 'typeorm';
 
 import { BaseEntity } from '../../common/entities/base-entity.entity.js';
 import { PostEntity } from '../../post/entities/post.entity.js';
 import { UserEntity } from '../../user/entities/user.entity.js';
+import { CommentStatus } from '../enum/comment-status.enum.js';
 
 @Entity()
 export class CommentEntity extends BaseEntity {
-  @OneToOne(() => UserEntity, {
+  @ManyToOne(() => UserEntity, {
     nullable: true,
     onDelete: 'CASCADE',
   })
@@ -16,7 +17,7 @@ export class CommentEntity extends BaseEntity {
   @Column({ name: 'author_id', type: 'integer' })
   authorId: number;
 
-  @OneToOne(() => PostEntity, {
+  @ManyToOne(() => PostEntity, {
     nullable: true,
     onDelete: 'CASCADE',
   })
@@ -25,6 +26,9 @@ export class CommentEntity extends BaseEntity {
 
   @Column({ name: 'post_id', type: 'integer' })
   postId: number;
+
+  @Column({ type: 'enum', enum: CommentStatus, default: CommentStatus.Active })
+  status: CommentStatus;
 
   @Column({ type: 'varchar' })
   body: string;

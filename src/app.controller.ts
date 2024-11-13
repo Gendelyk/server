@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
-@ApiTags('technical')
+@ApiTags('Technical')
 @Controller()
 export class AppController {
   @Get('/alive')

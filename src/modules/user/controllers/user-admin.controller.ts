@@ -9,7 +9,7 @@ import { CreateUserOutput } from '../dto/create-user/output.dto.js';
 import { UserService } from '../user.service.js';
 
 @Controller('/users')
-@ApiTags('users')
+@ApiTags('Users')
 @UseGuards(AdminGuard)
 export class UserAdminController {
   constructor(private readonly userService: UserService) {}
