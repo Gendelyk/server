@@ -30,8 +30,8 @@ async function bootstrap(): Promise<void> {
 
   if (!appConfig.isProduction) {
     const config = new DocumentBuilder()
-      .setTitle('Hispec')
-      .setDescription('The Hispec API description')
+      .setTitle('Gendelyk')
+      .setDescription('The Gendelyk API description')
       .setVersion('1.0')
       .build();
 

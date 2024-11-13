@@ -11,7 +11,7 @@ import { UserDto } from '../dto/user.dto.js';
 import { UserService } from '../user.service.js';
 
 @Controller('/users')
-@ApiTags('users')
+@ApiTags('Users')
 @UseGuards(UserGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {}

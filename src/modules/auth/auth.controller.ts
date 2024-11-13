@@ -23,7 +23,7 @@ import { SuccessOutput } from '../common/dto/sucess.output.js';
 import { UserRole } from '../user/enums/user-role.enum.js';
 import { UserService } from '../user/user.service.js';
 
-@ApiTags('auth')
+@ApiTags('Auth')
 @Controller('/auth')
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);
