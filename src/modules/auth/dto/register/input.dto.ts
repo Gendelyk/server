@@ -1,3 +1,10 @@
+import { PickType } from '@nestjs/swagger';
+
 import { BaseUser } from '../../../common/dto/base-user.js';
 
-export class RegisterUserInput extends BaseUser {}
+export class RegisterUserInput extends PickType(BaseUser, [
+  'firstName',
+  'lastName',
+  'email',
+  'password',
+]) {}
