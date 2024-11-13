@@ -7,6 +7,7 @@ import { SentryModule } from '@sentry/nestjs/setup';
 import { AppController } from './app.controller.js';
 import { AuthModule } from './modules/auth/auth.module.js';
 import { CategoryModule } from './modules/category/category.module.js';
+import { CommentModule } from './modules/comment/comment.module.js';
 import { CryptoModule } from './modules/crypto/crypto.module.js';
 import { DbModule } from './modules/db/db.module.js';
 import { PostModule } from './modules/post/post.module.js';
@@ -28,6 +29,7 @@ import { UserModule } from './modules/user/user.module.js';
     EventEmitterModule.forRoot(),
     PostModule,
     CategoryModule,
+    CommentModule,
   ],
   controllers: [AppController],
 })

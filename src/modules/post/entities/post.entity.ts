@@ -1,6 +1,14 @@
-import { Column, Entity, JoinColumn, ManyToOne, Relation } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  Relation,
+} from 'typeorm';
 
 import { CategoryEntity } from '../../category/entities/category.entity.js';
+import { CommentEntity } from '../../comment/entities/comment.entity.js';
 import { BaseEntity } from '../../common/entities/base-entity.entity.js';
 import { UserEntity } from '../../user/entities/user.entity.js';
 import { PostStatus } from '../enum/post-status.enum.js';
@@ -16,6 +24,9 @@ export class PostEntity extends BaseEntity {
 
   @Column({ name: 'author_id', type: 'integer' })
   authorId: number;
+
+  @OneToMany(() => CommentEntity, (comment) => comment.post)
+  comments: CommentEntity[];
 
   @ManyToOne(() => CategoryEntity, {
     nullable: true,

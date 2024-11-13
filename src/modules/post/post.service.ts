@@ -23,7 +23,7 @@ export class PostService {
   getPostByIdOrFail(postId: number): Promise<PostEntity> {
     return this.postRepository.findOneOrFail({
       where: { id: postId },
-      relations: { author: true },
+      relations: { author: true, comments: { author: true } },
     });
   }
 
