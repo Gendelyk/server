@@ -11,6 +11,7 @@ import { CommentModule } from './modules/comment/comment.module.js';
 import { CryptoModule } from './modules/crypto/crypto.module.js';
 import { DbModule } from './modules/db/db.module.js';
 import { PostModule } from './modules/post/post.module.js';
+import { RatingModule } from './modules/rating/rating.module.js';
 import { UserModule } from './modules/user/user.module.js';
 
 @Module({
@@ -30,6 +31,7 @@ import { UserModule } from './modules/user/user.module.js';
     PostModule,
     CategoryModule,
     CommentModule,
+    RatingModule,
   ],
   controllers: [AppController],
 })
