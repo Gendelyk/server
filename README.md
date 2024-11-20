@@ -19,3 +19,7 @@ to create blank migraiton file or
 to create migration based on your current db state
 
 where `name` is the name of migration
+
+# Generate mock data
+Make sure you have `.env` configured and run `npm run db:seed:mock`
+You can adjust amount of comments and post at `server/scripts/seeds/create-mock-data.ts` on lines 17-22
